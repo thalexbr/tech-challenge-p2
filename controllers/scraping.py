@@ -63,11 +63,13 @@ def download_latest_data() -> dict:
 
     file_path = f'{download_folder}/{latest_filename}'
 
-    renamed_file_path = f'{download_folder}/{latest_filename.replace(".csv",".parquet")}'
+    renamed_filename = latest_filename.replace(".csv",".parquet")
+
+    renamed_file_path = f'{download_folder}/{renamed_filename}'
 
     transform.csv_to_parquet(file_path, renamed_file_path, options)
 
-    aws_functions.upload_to_s3(renamed_file_path, 'mle', 'raw')
+    aws_functions.upload_to_s3(renamed_filename, 'mle', 'raw')
 
     if len(sorted_files) == 0:
         return {'message': 'No files found'}
