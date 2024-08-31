@@ -1,13 +1,17 @@
 import boto3
 
-sts_client = boto3.client('sts')
-response = sts_client.assume_role(
-    RoleArn='arn:aws:iam::your_account_id:role/your_role_name',
-    RoleSessionName='your_session_name'
-)
+def upload_to_s3(file, bucket, path):
 
-credentials = response['Credentials']
-client = boto3.client('s3',
-                     aws_access_key_id=credentials['AccessKeyId'],
-                     aws_secret_access_key=credentials['SecretAccessKey'],
-                     aws_session_token=credentials['SessionToken'])
+    sts_client = boto3.client('sts')
+    response = sts_client.assume_role(
+        RoleArn='arn:aws:iam::338003274337:role/EC2forSSMRole',
+        RoleSessionName='Upload_to_S3_Session'
+    )
+
+    credentials = response['Credentials']
+    client = boto3.client('s3',
+                        aws_access_key_id=credentials['AccessKeyId'],
+                        aws_secret_access_key=credentials['SecretAccessKey'],
+                        aws_session_token=credentials['SessionToken'])
+
+    client.upload_file(file, bucket, f'{path}/{file}')

@@ -10,7 +10,7 @@ from selenium.webdriver.common.by import By
 
 from models.ResposeModels import ScrapingResponseModel
 
-from utils import transform
+from utils import transform, aws_functions
 
 router = APIRouter(prefix="/api/v1")
 
@@ -58,8 +58,16 @@ def download_latest_data() -> dict:
     latest_filename = sorted_files[0]
 
     file_date = latest_filename.split('_')[1][0:8]
+
     options = {'encoding':'ISO-8859-1','skipfooter':2, 'sep':';', 'thousands':'.', 'decimal':',', 'header':1, 'index_col':False, 'engine': 'python'}
-    transform.csv_to_parquet(f'{download_folder}/{latest_filename}',f'{download_folder}/{latest_filename.replace(".csv",".parquet")}',options)
+
+    file_path = f'{download_folder}/{latest_filename.replace(".csv",".parquet")}'
+
+    renamed_file_path = f'{download_folder}/{latest_filename.replace(".csv",".parquet")}'
+
+    transform.csv_to_parquet(file_path, renamed_file_path, options)
+
+    aws_functions.upload_to_s3(renamed_file_path, 'mle', 'raw')
 
     if len(sorted_files) == 0:
         return {'message': 'No files found'}
