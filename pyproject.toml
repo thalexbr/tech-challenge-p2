@@ -11,6 +11,9 @@ selenium = "^4.23.1"
 fastapi = {extras = ["standard"], version = "^0.112.2"}
 chromedriver-py = "^128.0.6613.84"
 pydantic = "^2.8.2"
+pandas = "^2.2.2"
+pyarrow = "^17.0.0"
+boto3 = "^1.35.10"
 
 
 [tool.poetry.group.dev.dependencies]
