@@ -1,6 +1,6 @@
 import boto3
 
-def upload_to_s3(file, bucket, path):
+def upload_to_s3(source,destination, bucket, path):
 
     # sts_client = boto3.client('sts')
     # response = sts_client.assume_role(
@@ -16,8 +16,8 @@ def upload_to_s3(file, bucket, path):
 
     client = boto3.client('s3')
 
-    save_path =  f'{path}/{file}'
+    save_path =  f'{path}/{destination}'
 
     print(save_path)
 
-    client.upload_file(file, bucket,save_path)
+    client.upload_file(source, bucket,save_path)
