@@ -16,7 +16,7 @@ def upload_to_s3(file, bucket, path):
 
     client = boto3.client('s3')
 
-    save_path =  f'/{path}/{file}'
+    save_path =  f'{path}/{file}'
 
     print(save_path)
 
