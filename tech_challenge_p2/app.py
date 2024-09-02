@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from controllers import scraping
-from utils.log import get_logger, clone_log_config
+from utils.log import get_logger, clone_log_config, app_logger
 import logging
 
 

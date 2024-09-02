@@ -1,7 +1,6 @@
 import pandas as pd
 import pyarrow as pa
 import pyarrow.parquet as pq
-import yaml
 
 def csv_to_parquet(csv_file, parquet_file, file_date, options):
 
