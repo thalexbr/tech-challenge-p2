@@ -22,7 +22,7 @@ async def lifespan(app: FastAPI):
     clone_log_config(logger, server_logger)
     server_logger = logging.getLogger("uvicorn.error")
     clone_log_config(logger, server_logger)
-    app_logger = logging.getLogger("app_log")
+    app.app_logger = logging.getLogger("app_log")
     yield
 
 app = FastAPI(lifespan=lifespan)
