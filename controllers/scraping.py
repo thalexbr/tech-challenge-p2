@@ -1,7 +1,7 @@
 import os
 import time
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Request
 
 from chromedriver_py import binary_path
 from selenium import webdriver
@@ -15,7 +15,7 @@ from utils import transform, aws_functions
 router = APIRouter(prefix="/api/v1")
 
 @router.get('/download_latest_data', response_model=ScrapingResponseModel)
-def download_latest_data() -> dict:
+def download_latest_data(request: Request) -> dict:
 
     download_folder = os.getenv('DOWNLOAD_FOLDER')
     filter_selection = os.getenv('FILTER_SELECTION')
@@ -66,6 +66,8 @@ def download_latest_data() -> dict:
     renamed_filename = latest_filename.replace(".csv",".parquet")
 
     renamed_file_path = f'{download_folder}/{renamed_filename}'
+
+    request.app.logger.info(f'FilePath: {file_path} ::: RenamedFile: {renamed_file_path}')
 
     print(f'FilePath: {file_path} ::: RenamedFile: {renamed_file_path}')
 
