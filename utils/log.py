@@ -21,3 +21,21 @@ def clone_log_config(base_logger: logging.Logger, target_logger: logging.Logger)
     target_logger.handlers.clear()
     target_logger.addHandler(base_logger.handlers[0])
     target_logger.setLevel(base_logger.level)
+
+def app_logger(name):
+    logger = logging.getLogger(name)
+
+    logger.setLevel(logging.INFO)
+
+    file_handler = logging.FileHandler('logs/app.log')
+
+    formatter = logging.Formatter(
+        (
+        '{"unix_time": %(created)s, "time": "%(asctime)s", "module": "%(name)s",'
+        ' "lineno": %(lineno)s, "level": "%(levelname)s", "msg": "%(message)s"}'
+        )
+    )
+
+    file_handler.setFormatter(formatter)
+
+    logger.addHandler(file_handler)

@@ -67,7 +67,7 @@ def download_latest_data(request: Request) -> dict:
 
     renamed_file_path = f'{download_folder}/{renamed_filename}'
 
-    request.app.logger.info(f'FilePath: {file_path} ::: RenamedFile: {renamed_file_path}')
+    request.app.app_logger.info(f'FilePath: {file_path} ::: RenamedFile: {renamed_file_path}')
 
     print(f'FilePath: {file_path} ::: RenamedFile: {renamed_file_path}')
 
