@@ -1,7 +1,8 @@
 echo 
-echo '###################################'
-echo '## FIAP MLET PHASE 2 - SETUP APP ##'
-echo '###################################'
+echo '###################################################################'
+echo '## FIAP MLET PHASE 2 - SETUP APP                                 ##'
+echo '## Make sure to add your credentials to AWS on <roo>\credentials ##'
+echo '###################################################################'
 echo
 read -p "Enter the S3 bucket to store data: " BUCKET_NAME
 
