@@ -19,6 +19,8 @@ def download_latest_data(request: Request) -> dict:
 
     download_folder = os.getenv('DOWNLOAD_FOLDER')
     filter_selection = os.getenv('FILTER_SELECTION')
+    bucket_name = os.getenv('BUCKET_NAME')
+    url = os.getenv('URL_B3')
 
     options = Options()
     options.add_argument('--headless')
@@ -36,8 +38,6 @@ def download_latest_data(request: Request) -> dict:
 
     # Tempo mínimo de espera para as ações do navegador
     driver.implicitly_wait(10)
-
-    url = os.getenv('URL_B3')
 
     driver.get(url)
 
@@ -71,7 +71,7 @@ def download_latest_data(request: Request) -> dict:
 
     transform.csv_to_parquet(file_path, renamed_file_path, file_date, options)
 
-    aws_functions.upload_to_s3(renamed_file_path,renamed_filename, '2mle', 'raw')
+    aws_functions.upload_to_s3(renamed_file_path,renamed_filename, bucket_name, 'raw')
 
     if len(sorted_files) == 0:
         return {'message': 'No files found'}
