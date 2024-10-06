@@ -67,8 +67,6 @@ def download_latest_data(request: Request) -> dict:
 
     renamed_file_path = f'{download_folder}/{renamed_filename}'
 
-    request.app.app_logger.info(f'FilePath: {file_path} ::: RenamedFile: {renamed_file_path}')
-
     transform.csv_to_parquet(file_path, renamed_file_path, file_date, options)
 
     aws_functions.upload_to_s3(renamed_file_path,renamed_filename, bucket_name, 'raw')
