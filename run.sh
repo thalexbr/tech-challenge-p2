@@ -12,7 +12,7 @@ docker rm -f techchallengep2
 docker run -dit --name techchallengep2 \
            -v ./downloads:/app/downloads \
            -v ./credentials:/root/.aws \
-           -e URL_B3='https://sistemaswebb3-listados.b3.com.br/indexPage/day/IBOV?language=pt-br' \
+           -e URL_B3='https://sistemaswebb3-listados.b3.com.br/indexPage/day/ibov?language=pt-br' \
            -e DOWNLOAD_FOLDER='/app/downloads' \
            -e FILTER_SELECTION='Setor de Atuação' \
            -e BUCKET_NAME=$BUCKET_NAME \
